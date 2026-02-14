@@ -1,46 +1,55 @@
-lista = [-4, 7, 10, 3] #Lista de enteros
-def contador(lista: list[int]) -> dict: #Single responsability (La función hace una sola cosa)
-    """
-    Docstring para contador
-    
-    :param lista: Una lista de números enteros
-    :type lista: list
-    :return: Retorna un diccionario con números pares, impares, la suma total de los números y el número menor de la lista.
-    :rtype: dict
-    """
-
+def contador(lista: list[int]) -> dict:
     if not lista:
         raise ValueError("La lista no puede estar vacía")
-         
-    resultado = { #Se retornará el diccionario con todos los datos
+
+    resultado = {
         "pares": [],
         "impares": [],
         "suma": 0,
         "mayor": lista[0],
         "menor": lista[0],
-        "cantidad_pares": 0,
-        "cantidad_impares": 0,
-        "promedio": 0,
+        "promedio": 0.0,
+        "mediana": 0.0,
+        "rango": 0,
+        "únicos": set(),
     }
 
-    for i, numero in enumerate(lista):
+    for numero in lista:
+        # Suma y acumulación
         resultado["suma"] += numero
 
+        # Mayor y menor
         if numero > resultado["mayor"]:
             resultado["mayor"] = numero
-        
         if numero < resultado["menor"]:
             resultado["menor"] = numero
-        
+
+        # Pares e impares
         if numero % 2 == 0:
             resultado["pares"].append(numero)
-            resultado["cantidad_pares"] = i
         else:
             resultado["impares"].append(numero)
-            resultado["cantidad_impares"] = i
 
-    resultado["promedio"] = (resultado["cantidad_pares"] + resultado["cantidad_impares"]) / 5
+        # Valores únicos
+        resultado["únicos"].add(numero)
+
+    # Promedio
+    resultado["promedio"] = resultado["suma"] / len(lista)
+
+    # Rango
+    resultado["rango"] = resultado["mayor"] - resultado["menor"]
+
+    # Mediana
+    numeros_ordenados = sorted(lista)
+    n = len(numeros_ordenados)
+    mid = n // 2
+    if n % 2 == 0:
+        resultado["mediana"] = (numeros_ordenados[mid - 1] + numeros_ordenados[mid]) / 2
+    else:
+        resultado["mediana"] = numeros_ordenados[mid]
 
     return resultado
-print(contador(lista), end="\n", sep="*")
-#Refactorizar esta mierda :v
+
+# Test
+lista = [-4, 7, 10, 3]
+print(contador(lista))
