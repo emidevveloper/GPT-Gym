@@ -16,8 +16,20 @@
  * Para ello tiene que realizar la opción correcta en cada tramo de la pista.
  */
 """
-
+# Validar datos
 def has_surpassed(action: list, track: str) -> bool:
-    pass
+    largo = min(len(action), len(track))
+    success = True
+    string = ""
+    for i in range(largo):
+        paso_atleta = action[i]
+        paso_pista = track[i]
+
+        if action == "run" and track == "_":
+            pass
+
+
+
+has_surpassed(action=["run", "jump"], track="_")
 
 
