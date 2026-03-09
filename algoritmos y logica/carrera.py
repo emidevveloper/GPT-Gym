@@ -18,18 +18,9 @@
 """
 # Validar datos
 def has_surpassed(action: list, track: str) -> bool:
-    largo = min(len(action), len(track))
-    success = True
-    string = ""
-    for i in range(largo):
-        paso_atleta = action[i]
-        paso_pista = track[i]
+    for paso_atleta, paso_pista in zip(action, track):
 
-        if action == "run" and track == "_":
+        if (paso_atleta == "run" and paso_pista == "_" or paso_atleta == "jump" and paso_pista == "|"):
             pass
 
-
-
 has_surpassed(action=["run", "jump"], track="_")
-
-
