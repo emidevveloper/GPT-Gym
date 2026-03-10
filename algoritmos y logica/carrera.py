@@ -18,9 +18,25 @@
 """
 # Validar datos
 def has_surpassed(action: list, track: str) -> bool:
+    es_valido = True
+    string_final = ""
     for paso_atleta, paso_pista in zip(action, track):
+        if (paso_atleta == "run" and paso_pista == "_") or (paso_atleta == "jump" and paso_pista == "|"):
+            string_final += paso_pista 
+        elif paso_atleta == "jump" and paso_pista == "_":
+            es_valido = False   
+            string_final += "x" 
+        elif paso_atleta == "run" and paso_pista == "|":
+            es_valido = False
+            string_final += "/"
+    print(f"Pista final: {string_final}")
+    return es_valido
 
-        if (paso_atleta == "run" and paso_pista == "_" or paso_atleta == "jump" and paso_pista == "|"):
-            pass
+# Pista: _|_|
+# Acciones: "jump" (debería fallar en _), "run" (debería fallar en |)
+resultado = has_surpassed(["jump", "run", "jump", "run"], "_|_|")
+print(f"¿Superó la carrera?: {resultado}")
 
-has_surpassed(action=["run", "jump"], track="_")
+
+resultado = has_surpassed(["run", "jump", "run", "jump"], "_|_|")
+print(f"¿Superó la carrera?: {resultado}")
